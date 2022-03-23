@@ -20,5 +20,7 @@ To program UPDI device, connect 470 Ohm resistor between HW UART TX and target M
 ------------------                                      -------------
 ~~~
 
+If there is USB to UART IC connected to programmer MCU UART pins that are used for UPDI programming (many Arduino boards have USB to UART IC connected to D0 and D1), it can interfere with UPDI communication, so it's best to be removed. The best option is to use boards like Arduino Pro Mini which doesn't have any USB to UART IC.
+
 # NOTE!
 The library is not maintained properly, so use it at your own risk! We do not provide any warranty!
