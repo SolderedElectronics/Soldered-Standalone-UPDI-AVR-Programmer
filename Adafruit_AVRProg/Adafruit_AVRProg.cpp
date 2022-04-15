@@ -185,7 +185,7 @@ bool Adafruit_AVRProg::startProgramMode(uint32_t clockspeed) {
       programmode = true;
       return true;
     }
-    mySerial.print(reply, HEX);
+    //mySerial.print(reply, HEX);
     return false;
   }
 }
@@ -619,7 +619,7 @@ const byte *Adafruit_AVRProg::readImagePage(const byte *hextext,
     cksum += b;
     if (cksum != 0) {
       error(F("Bad checksum: "));
-      mySerial.print(cksum, HEX);
+      // mySerial.print(cksum, HEX);
     }
     if (pgm_read_byte(hextext++) != '\n') {
       error(F("No end of line"));
@@ -679,29 +679,29 @@ bool Adafruit_AVRProg::verifyImage(const byte *hextext) {
 
       for (uint16_t x = 0; x < pagebuffersize; x++) {
         if (buffer1[x] != buffer2[x]) {
-          mySerial.print(F("Verification error at address 0x"));
-          mySerial.print(pageaddr + x, HEX);
-          mySerial.print(F(": Should be 0x"));
-          mySerial.print(buffer1[x], HEX);
-          mySerial.print(F(" not 0x"));
-          mySerial.println(buffer2[x], HEX);
-          mySerial.println("----");
+          //mySerial.print(F("Verification error at address 0x"));
+          //mySerial.print(pageaddr + x, HEX);
+          //mySerial.print(F(": Should be 0x"));
+          //mySerial.print(buffer1[x], HEX);
+          //mySerial.print(F(" not 0x"));
+          //mySerial.println(buffer2[x], HEX);
+          //mySerial.println("----");
           for (uint16_t j = 0; j < pagebuffersize; j++) {
-            mySerial.print("0x");
-            mySerial.print(buffer1[j], HEX);
+            //mySerial.print("0x");
+            //mySerial.print(buffer1[j], HEX);
             if ((j % 16) == 15) {
-              mySerial.println();
+              //mySerial.println();
             }
           }
-          mySerial.println(F("vs."));
+          //mySerial.println(F("vs."));
           for (uint16_t j = 0; j < pagebuffersize; j++) {
-            mySerial.print(F("0x"));
-            mySerial.print(buffer2[j], HEX);
+            //mySerial.print(F("0x"));
+            //mySerial.print(buffer2[j], HEX);
             if ((j % 16) == 15) {
-              mySerial.println();
+              //mySerial.println();
             }
           }
-          mySerial.println(F("----"));
+          //mySerial.println(F("----"));
           return false;
         }
       }
@@ -724,7 +724,7 @@ bool Adafruit_AVRProg::verifyImage(const byte *hextext) {
         continue;
       }
       if (c != ':') {
-        mySerial.print(c);
+        //mySerial.print(c);
         error(F(" No colon?"));
         break;
       }
@@ -773,12 +773,12 @@ bool Adafruit_AVRProg::verifyImage(const byte *hextext) {
           reply = isp_transaction(0x20, lineaddr >> 9, lineaddr / 2, 0) & 0xFF;
         }
         if (b != reply) {
-          mySerial.print(F("Verification error at address 0x"));
-          mySerial.print(lineaddr, HEX);
-          mySerial.print(F(" Should be 0x"));
-          mySerial.print(b, HEX);
-          mySerial.print(F(" not 0x"));
-          mySerial.println(reply, HEX);
+          //mySerial.print(F("Verification error at address 0x"));
+          //mySerial.print(lineaddr, HEX);
+          //mySerial.print(F(" Should be 0x"));
+          //mySerial.print(b, HEX);
+          //mySerial.print(F(" not 0x"));
+          //mySerial.println(reply, HEX);
           return false;
         }
         lineaddr++;
@@ -788,7 +788,7 @@ bool Adafruit_AVRProg::verifyImage(const byte *hextext) {
       b = (b << 4) + hexToByte(pgm_read_byte(hextext++));
       cksum += b;
       if (cksum != 0) {
-        mySerial.print(cksum, HEX);
+        //mySerial.print(cksum, HEX);
         error(F(" - bad checksum"));
       }
       if (pgm_read_byte(hextext++) != '\n') {
@@ -823,8 +823,8 @@ bool Adafruit_AVRProg::flashWord(uint8_t hilo, uint16_t addr, uint8_t data) {
 // Basically, write the pagebuff (with pagesize bytes in it) into page $pageaddr
 bool Adafruit_AVRProg::flashPage(byte *pagebuff, uint16_t pageaddr,
                                  uint16_t pagesize) {
-  mySerial.print(F("Flashing page "));
-  mySerial.println(pageaddr, HEX);
+  //mySerial.print(F("Flashing page "));
+  //mySerial.println(pageaddr, HEX);
 
 #if VERBOSE
   for (uint16_t i = 0; i < pagesize; i++) {
@@ -864,10 +864,10 @@ bool Adafruit_AVRProg::flashPage(byte *pagebuff, uint16_t pageaddr,
     uint16_t commitreply =
         isp_transaction(0x4C, (pageaddr >> 8) & 0xFF, pageaddr & 0xFF, 0);
 
-    mySerial.print(F("  Commit Page: 0x"));
-    mySerial.print(pageaddr, HEX);
-    mySerial.print(F(" -> 0x"));
-    mySerial.println(commitreply, HEX);
+    //mySerial.print(F("  Commit Page: 0x"));
+    //mySerial.print(pageaddr, HEX);
+    //mySerial.print(F(" -> 0x"));
+    //mySerial.println(commitreply, HEX);
     if (commitreply != pageaddr)
       return false;
 
@@ -902,7 +902,7 @@ void Adafruit_AVRProg::busyWait(void) {
 /**************************************************************************/
 void Adafruit_AVRProg::generateClock() {
 #ifdef __AVR__
-  mySerial.println(F("Setting up 8MHz clock on pin 9"));
+  //mySerial.println(F("Setting up 8MHz clock on pin 9"));
   pinMode(9, OUTPUT);
   // setup high freq PWM on pin 9 (timer 1)
   OCR1A = 0;
@@ -1121,9 +1121,9 @@ byte Adafruit_AVRProg::hexToByte(byte h) {
     return ((h - 'A') + 10);
   if (h >= 'a' && h <= 'f')
     return ((h - 'a') + 10);
-  mySerial.print("Read odd char 0x");
-  mySerial.print(h, HEX);
-  mySerial.println();
+  //mySerial.print("Read odd char 0x");
+  //mySerial.print(h, HEX);
+  //mySerial.println();
 
   error(F("Bad hex digit!"));
   return -1;
@@ -1154,7 +1154,7 @@ void Adafruit_AVRProg::pulseLED(int pin, int times) {
 */
 /**************************************************************************/
 void Adafruit_AVRProg::error(const char *string) {
-  mySerial.println(string);
+  //mySerial.println(string);
   if (errLED > 0) {
     pinMode(errLED, OUTPUT);
     digitalWrite(errLED, HIGH);
@@ -1170,7 +1170,7 @@ void Adafruit_AVRProg::error(const char *string) {
 */
 /**************************************************************************/
 void Adafruit_AVRProg::error(const __FlashStringHelper *string) {
-  mySerial.println(string);
+  //mySerial.println(string);
   if (errLED > 0) {
     pinMode(errLED, OUTPUT);
     digitalWrite(errLED, HIGH);

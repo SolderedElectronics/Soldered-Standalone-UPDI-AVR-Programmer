@@ -14,7 +14,7 @@
 #define FUSE_HIGH 2 ///< High fuse
 #define FUSE_EXT 3  ///< Extended fuse
 
-// #define VERBOSE 1
+//#define VERBOSE 2
 
 extern SoftwareSerial mySerial;
 
@@ -39,7 +39,7 @@ typedef struct image {
     defined(__SAMD51__)
   byte image_hexcode[60000]; ///< Max buffer for intel hex format image (text)
 #else
-  byte image_hexcode[10000]; ///< Max buffer for intel hex format image (text)
+  byte image_hexcode[12000]; ///< Max buffer for intel hex format image (text)
 #endif
 } image_t;
 

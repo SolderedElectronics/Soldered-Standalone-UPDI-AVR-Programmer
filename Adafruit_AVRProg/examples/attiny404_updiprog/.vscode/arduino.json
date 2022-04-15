@@ -1,0 +1,6 @@
+{
+    "sketch": "attiny404_updiprog.ino",
+    "board": "Dasduino_Boards:avr:core",
+    "output": "../build",
+    "port": "COM4"
+}
