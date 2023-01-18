@@ -39,13 +39,13 @@ typedef struct image {
     defined(__SAMD51__)
   byte image_hexcode[60000]; ///< Max buffer for intel hex format image (text)
 #else
-  byte image_hexcode[12000]; ///< Max buffer for intel hex format image (text)
+  byte image_hexcode[10000]; ///< Max buffer for intel hex format image (text)
 #endif
 } image_t;
 
 // Useful message printing definitions
 
-#define debug(string) // mySerial.println(string);
+#define DEBUG(string) // // mySerial.println(string);
 
 /*!
   @brief    Class for talking to an AVR chip with SPI to program flash and fuses
